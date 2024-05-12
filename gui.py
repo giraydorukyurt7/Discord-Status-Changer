@@ -1,19 +1,18 @@
 import tkinter as tk
 from tkinter import messagebox
-
+import os
 class MyGUI:
 
     def __init__(self):
 
         self.root =tk.Tk()
-
     ## Title
         self.root.title("Discord Status Changer")
     ## window size
-        self.root.geometry("500x500")
+        self.root.geometry("600x600")
     ## icon
         self.root.iconbitmap('images/logo/logo.ico')
-#### Creating a Menu
+#### Creating a Menu ######################################################
     ## Creating a menubar
         self.menubar = tk.Menu(self.root)
     ## First menu
@@ -29,33 +28,43 @@ class MyGUI:
         self.menubar.add_cascade(menu=self.actionmenu, label="Action")
     ## Config settings for the menubar
         self.root.config(menu=self.menubar)
+########################################################################
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         #printing on window
-        self.label = tk.Label(self.root, text="Hello World", font=('Arial',31))
+        self.label = tk.Label(self.root, text="Create a file", font=('Arial',31))
         self.label.pack(padx=10,pady=31)
 
-        #adding a text box
-        self.textbox = tk.Text(self.root,height=5,font=('Arial', 15))
-        self.textbox.bind("<KeyPress>", self.shortcut)
-        self.textbox.pack(padx=20)
-
-        #check button control
-        self.check_state= tk.IntVar()
-
-        #adding check box
-        self.check = tk.Checkbutton(self.root, text='complated', font=('Arial',10), variable=self.check_state)
-        self.check.pack(padx=10)
-
-        #adding a button
-        self.button = tk.Button(self.root, text="Mesaji goster -_*", font=('Arial', 15), command=self.show_message)
-        self.button.pack(pady=10, padx=5)
-
-        #clear button
-        self.clearbtn = tk.Button(self.root, text="Clear the Textbox", font=('Arial', 15), command=self.clear)
-        self.clearbtn.pack(pady=10, padx=5)
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        #file name entry section
+        self.fileNameEntry = tk.Entry(self.root)
+        self.fileNameEntry.pack(padx=10, pady=10)
+        #confirm file name button
+        self.confirmFileNamebtn = tk.Button(self.root, text="Confirm File Name", font=('Arial',15), command=self.confirmFileName)
+        self.confirmFileNamebtn.pack(padx=10, pady=10)
+        #create file button
+        self.createFilebtn = tk.Button(self.root, text="Create File", font=('Arial',15), command=self.createFile)
+        self.createFilebtn.pack(padx=10,pady=10)
+        #create file delete button
+        self.deleteFilebtn = tk.Button(self.root, text="Delete File", font=('Arial',15), command=self.deleteFile)
+        self.deleteFilebtn.pack(padx=10,pady=10)
         #start window
         self.root.mainloop()
+    
+    def confirmFileName(self):
+        filename = self.fileNameEntry.get()
+        print(filename)
+        return filename
+    def createFile(self):
+        filename = self.confirmFileName() + ".exe"
+        file = open(filename,"w")
+    
+    def deleteFile(self):
+        filename = self.confirmFileName() + ".exe"
+
+        if os.path.exists(filename):
+            os.remove(filename)    
+        else:
+            print("the file does not exists")
 
     def show_message(self):
         if self.check_state.get() == 0:

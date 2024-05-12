@@ -65,3 +65,26 @@ root.mainloop()
 # #adding an entry box
 # myentry = tk.Entry(root)
 # myentry.pack(pady=10)
+
+
+        # #adding a text box
+        # self.textbox = tk.Text(self.root,height=5,font=('Arial', 15))
+        # self.textbox.bind("<KeyPress>", self.shortcut)
+        # self.textbox.pack(padx=20)
+
+        # #check button control
+        # self.check_state= tk.IntVar()
+
+        # #adding check box
+        # self.check = tk.Checkbutton(self.root, text='complated', font=('Arial',10), variable=self.check_state)
+        # self.check.pack(padx=10)
+
+
+        # #adding a button
+        # self.button = tk.Button(self.root, text="Mesaji goster -_*", font=('Arial', 15), command=self.show_message)
+        # self.button.pack(pady=10, padx=5)
+
+        # #clear button
+        # self.clearbtn = tk.Button(self.root, text="Clear the Textbox", font=('Arial', 15), command=self.clear)
+        # self.clearbtn.pack(pady=10, padx=5)
+        # 
