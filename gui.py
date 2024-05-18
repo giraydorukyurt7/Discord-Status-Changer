@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import os
+import subprocess
 class MyGUI:
 
     def __init__(self):
@@ -51,15 +52,30 @@ class MyGUI:
         self.root.mainloop()
     
     def confirmFileName(self):
-        filename = self.fileNameEntry.get()
+        filename = self.fileNameEntry.get() + ".py"
         print(filename)
+        self.root.title(self.confirmFileName)
         return filename
     def createFile(self):
-        filename = self.confirmFileName() + ".exe"
+        filename = self.confirmFileName()
         file = open(filename,"w")
+        with open(filename,'w') as file:
+            file.write('print("File has been succesfully created")\n\n')
+            file.write('import tkinter as tk\n\n')
+            file.write('class TheGui:\n\n')
+            file.write('\tdef __init__(self):\n')
+            file.write('\t\tself.root = tk.Tk()\n')
+            file.write('\t## Title\n')
+            file.write('\t\tself.root.title("' + filename + '")\n')
+            file.write('\t## Window Size")\n')
+            file.write('\t\tself.root.geometry("500x10")\n')
+            file.write('\t## Start The Loop\n')
+            file.write('\t\tself.root.mainloop()\n')
+            file.write('TheGui()')
+        subprocess.run(['python', filename])
     
     def deleteFile(self):
-        filename = self.confirmFileName() + ".exe"
+        filename = self.confirmFileName()
 
         if os.path.exists(filename):
             os.remove(filename)    
@@ -84,3 +100,14 @@ class MyGUI:
         self.textbox.delete('1.0', tk.END)
 
 MyGUI()
+
+# import tkinter as tk
+# class MyGUI:
+#     def __init__(self):
+#         self.root =tk.Tk()
+#     ## Title
+#         self.root.title("Test Succesfull")
+#     ## window size
+#         self.root.geometry("600x600")
+#     ## start the loop
+#         self.root.mainloop()
